@@ -2,17 +2,17 @@ import google.generativeai as genai
 import os
 
 #Config
-genai.configure(api_key="SUA_CHAVE_API")
+genai.configure(api_key="SUA_API_KEY")
 modelo = genai.GenerativeModel('gemini-1.5-flash')
 
 def clear():
     os.system('cls')
 
 #funções de cada artigo
-def tratarSobreArtigo(nomeArtigo, detalhesPrompt):
+def tratarSobreArtigo(nomeArtigo):
     clear()
     print("< =================================================================== > \n")
-    promptContexto = f"Contexto: Considerando apenas o artigo {nomeArtigo}, {detalhesPrompt}. Resuma o artigo de forma extensa e didática"
+    promptContexto = f"Contexto: Considerando apenas o artigo {nomeArtigo}, resuma-o detalhadamente. Apresente diferenças desse artigo para outros disponíveis que trate do mesmo tema, apenas caso haja alguma relevante."
     responseContexto = modelo.generate_content(promptContexto)
     print(responseContexto.text)
 
@@ -46,21 +46,27 @@ def tratarSobreArtigo(nomeArtigo, detalhesPrompt):
     input("Pressione Enter para continuar...")
     clear()
 
-def main():
-    #Menu
-    artigo = 1
+artigo = 1
 
-    while artigo != 0:
-        print("Escolha um dos artigos para aprofundamento:")
-        print("1. Facing Up to the Problem of Consciousness")
-        print("2. The Conscious Mind")
-        print("3. Hard problem of consciousness (https://iep.utm.edu/hard-problem-of-conciousness/)")
-        print("4. Zumbis filosóficos, Stanford Encyclopedia of Philosophy (https://plato.stanford.edu/entries/zombies/)")
-        print("0. Sair")
+while artigo != 0:
+    print("Escolha um dos artigos para aprofundamento:")
+    print("1. Facing Up to the Problem of Consciousness")
+    print("2. The Conscious Mind")
+    print("3. Hard problem of consciousness (https://iep.utm.edu/hard-problem-of-conciousness/)")
+    print("4. Zumbis filosóficos, Stanford Encyclopedia of Philosophy (https://plato.stanford.edu/entries/zombies/)")
+    print("0. Sair")
 
-        artigo = int(input("Digite o número do artigo: "))
+    artigo = int(input("Digite o número do artigo: "))
 
-        if artigo == 1:
-            nomeArtigo = "'Facing Up to the Problem of Consciousness' de David J. Chalmers"
-            detalhesPrompt = "explique o que ele entende por 'problema difícil da consciência' e como ele diferencia este problema do 'problema fácil'"
-            tratarSobreArtigo(nomeArtigo, detalhesPrompt)
+    if artigo == 1:
+        nomeArtigo = "'Facing Up to the Problem of Consciousness' de David J. Chalmers"
+        tratarSobreArtigo(nomeArtigo)
+    elif artigo == 2:
+        nomeArtigo = "'The Conscious Mind' de David J. Chalmers"
+        tratarSobreArtigo(nomeArtigo)
+    elif artigo == 3:
+        nomeArtigo = "https://iep.utm.edu/hard-problem-of-conciousness/"
+        tratarSobreArtigo(nomeArtigo)
+    elif artigo == 4:
+        nomeArtigo = "https://plato.stanford.edu/entries/zombies/"
+        tratarSobreArtigo(nomeArtigo)
